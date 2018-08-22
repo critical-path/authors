@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/critical-path/authors.svg?branch=master)](https://travis-ci.com/critical-path/authors)
+
 ## authors v0.1.0
 
 Create an `AUTHORS` file to thank the people who contribute to your Git/GitHub project.
