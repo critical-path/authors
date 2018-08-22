@@ -5,7 +5,7 @@ Create an `AUTHORS` file to thank the people who contribute to your Git/GitHub p
 
 ## Dependencies
 
-authors requires Python and the pip package.  It also requires the following packages for usage and testing.
+authors requires Python 3.x and the pip package.  It also requires the following packages for usage and testing.
 
 __Usage__:
 - click
