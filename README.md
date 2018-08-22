@@ -75,11 +75,11 @@ contents:
 
 `format` - The format of the file created by authors, where `html`, `md`, and `rst` are valid values (default: `md`).
 
-`heading` - The heading string (default: `Authors`.
+`heading` - The heading string (default: `Authors`).
 
 `opening` - The opening string (default: `Thank you to all of our contributors.`).
 
-`closing` - The closing string (default: `This project would not be possible without you.`.
+`closing` - The closing string (default: `This project would not be possible without you.`).
 
 authors does not require `.authors.yml`.  If authors cannot find, open, or parse `.authors.yml`, or if authors detects any missing or invalid values, then it will use default values.
 
