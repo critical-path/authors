@@ -1,7 +1,5 @@
 from pathlib import Path
 
-from sys import stdin
-
 from jinja2 import (
     Environment,
     PackageLoader,
