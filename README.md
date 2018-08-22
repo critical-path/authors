@@ -42,7 +42,7 @@ sudo pip install .
 
 ## Using authors with arguments
 
-From any directory, run `authors` with one or more arguments, where each argument is the name of a person who has contributed to your project.  The result will be a file containing the names that you provide.
+From any directory, run `authors` with one or more arguments, where each argument is the name of someone who has contributed to your project.  The result will be an `AUTHORS` file containing the names that you provide.
 
 ```
 authors first-author second-author third-author nth-author
@@ -51,7 +51,7 @@ authors first-author second-author third-author nth-author
 
 ## Using authors with standard input (preferred method)
 
-From your project's working directory (the directory in which the `.git` sub-directory resides), run `git` with the `log` command and the `--format` option, redirecting the standard output to `authors`.  The result will be a file containing the names found in your commit log.
+From your project's working directory (the directory in which the `.git` sub-directory resides), run `git` with the `log` command and the `--format` option, redirecting the standard output to `authors`.  The result will be an `AUTHORS` file that contains the names found in your commit log.
 
 ```
 git log --format=%an | authors
