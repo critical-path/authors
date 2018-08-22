@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Authors</title>
+  </head>
+  <body>
+    <h1>{{ heading }}</h1>
+    <p>{{ opening }}</p>
+    <ul>
+      {% for author in authors %}
+      <li>{{ author }}</li>
+      {% endfor %}
+    </ul>
+    <p>{{ closing }}</p>
+  </body>
+</html>
+
