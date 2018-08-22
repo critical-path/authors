@@ -34,7 +34,7 @@ def test_cli_standard_input_redirection():
 
    echo = Popen(["echo", "-e", "author-c\nAuthor-B\nauthor-a"], stdout=PIPE)
    thank_authors = Popen(["authors"], stdin=echo.stdout)
-   stdandard_output, stdandard_error = thank_authors.communicate()
+   standard_output, standard_error = thank_authors.communicate()
    assert path.stat()
 
    path.unlink()
