@@ -12,11 +12,9 @@ setup(
     author_email="n/a",
     license="MIT",
     classifiers=[
-        "Development Status :: 2 - Alpha",
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3"
     ],
     keywords="authors thank contribute contributor contribution git github",
