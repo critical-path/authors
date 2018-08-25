@@ -1,14 +1,21 @@
+"""The library of functions used by authors."""
+
+
 from pathlib import Path
 
 from jinja2 import (
     Environment,
-    PackageLoader,
-    Template
+    PackageLoader
 )
 
-from yaml import load
+from yaml import (
+    load,
+    YAMLError
+)
+
 
 CONFIGURATION_FILE = ".authors.yml"
+
 
 def get_configuration_path(file):
     """Return path to configuration file (.authors.yml)."""
@@ -19,6 +26,7 @@ def get_configuration_path(file):
 
     return configuration_path
 
+
 def get_parsed_configuration_settings(path):
     """Return parsed configuration settings."""
 
@@ -26,19 +34,26 @@ def get_parsed_configuration_settings(path):
         with path.open() as reader:
             parsed = reader.read()
             parsed = load(parsed)
-    except:
+    except (FileNotFoundError, IOError, YAMLError):
         parsed = dict()
 
     return parsed
+
 
 def get_validated_configuration_settings(settings):
     """Return validated configuration settings, providing
        default values where necessary."""
 
+    fformats = [
+        "html",
+        "md",
+        "rst"
+    ]
+
     try:
         name = settings.get("file").get("name")
         assert isinstance(name, str)
-    except:
+    except AssertionError:
         name = "AUTHORS"
 
     # We use fformat, because format is the name of a
@@ -47,26 +62,26 @@ def get_validated_configuration_settings(settings):
     try:
         fformat = settings.get("file").get("format").lower()
         assert isinstance(fformat, str)
-        assert fformat in ["html", "md", "rst"]
-    except:
+        assert fformat in fformats
+    except AssertionError:
         fformat = "md"
 
     try:
         heading = settings.get("contents").get("heading")
         assert isinstance(heading, str)
-    except:
+    except AssertionError:
         heading = "Authors"
 
     try:
         opening = settings.get("contents").get("opening")
         assert isinstance(opening, str)
-    except:
+    except AssertionError:
         opening = "Thank you to all of our contributors."
 
     try:
         closing = settings.get("contents").get("closing")
         assert isinstance(closing, str)
-    except:
+    except AssertionError:
         closing = "This project would not be possible without you."
 
     validated = dict(
@@ -78,6 +93,7 @@ def get_validated_configuration_settings(settings):
     )
 
     return validated
+
 
 def get_authors(source):
     """Return unique, sorted authors from either
@@ -95,6 +111,7 @@ def get_authors(source):
 
     return authors
 
+
 def get_contents_of_authors_file(authors, **kwargs):
     """Return contents of AUTHORS file."""
 
@@ -106,8 +123,8 @@ def get_contents_of_authors_file(authors, **kwargs):
 
     loader = PackageLoader("authors", "templates")
     environment = Environment(
-        loader=loader, 
-        lstrip_blocks=True, 
+        loader=loader,
+        lstrip_blocks=True,
         trim_blocks=True
     )
 
@@ -115,6 +132,7 @@ def get_contents_of_authors_file(authors, **kwargs):
     contents = template.render(authors=authors, **kwargs)
 
     return contents
+
 
 def write_authors_file(contents, **kwargs):
     """Write AUTHORS file."""
