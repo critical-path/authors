@@ -1,3 +1,6 @@
+"""The command-line interface for authors."""
+
+
 from authors.lib import (
     CONFIGURATION_FILE,
     get_authors,
@@ -14,10 +17,11 @@ from click import (
     get_text_stream
 )
 
+
 @command()
 @argument("authors", nargs=-1)
 def thank_authors(authors):
-    """Create an AUTHORS file to thank the people 
+    """Create an AUTHORS file to thank the people
        who contribute to your Git/GitHub project."""
 
     # source = arguments | standard input
@@ -29,6 +33,7 @@ def thank_authors(authors):
     validated = get_validated_configuration_settings(parsed)
     contents = get_contents_of_authors_file(authors, **validated)
     write_authors_file(contents, **validated)
+
 
 if __name__ == "__main__":
     thank_authors()
