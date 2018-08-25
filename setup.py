@@ -35,7 +35,8 @@ setup(
         "test": [
             "coveralls",
             "pytest",
-            "pytest-cov"
+            "pytest-cov",
+            "radon"
         ]
     },
     entry_points={

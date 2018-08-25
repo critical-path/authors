@@ -18,6 +18,7 @@ __Testing__:
 - coveralls
 - pytest
 - pytest-cov
+- radon
 
 
 ## Installing authors with test cases and testing dependencies
@@ -88,7 +89,13 @@ authors does not require `.authors.yml`.  If authors cannot find, open, or parse
 
 ## Testing authors after installation
 
-Run `pytest` with the `-vv`, `--cov`, and `--cov-report` options.
+1. Run `radon` with the `mi` command and the `--show` option.
+
+```
+radon mi --show authors
+```
+
+2. Run `pytest` with the `-vv`, `--cov`, and `--cov-report` options.
 
 ```
 pytest -vv --cov --cov-report=term-missing
