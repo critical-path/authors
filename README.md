@@ -16,6 +16,7 @@ __Usage__:
 
 __Testing__:
 - coveralls
+- flake8
 - pytest
 - pytest-cov
 - radon
@@ -95,7 +96,13 @@ authors does not require `.authors.yml`.  If authors cannot find, open, or parse
 radon mi --show authors
 ```
 
-2. Run `pytest` with the `-vv`, `--cov`, and `--cov-report` options.
+2. Run `flake8` with the `--count` option.
+
+```
+flake8 --count authors
+```
+
+3. Run `pytest` with the `-vv`, `--cov`, and `--cov-report` options.
 
 ```
 pytest -vv --cov --cov-report=term-missing
