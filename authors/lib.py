@@ -53,7 +53,7 @@ def get_validated_configuration_settings(settings):
     try:
         name = settings.get("file").get("name")
         assert isinstance(name, str)
-    except AssertionError:
+    except (AssertionError, AttributeError):
         name = "AUTHORS"
 
     # We use fformat, because format is the name of a
@@ -63,25 +63,25 @@ def get_validated_configuration_settings(settings):
         fformat = settings.get("file").get("format").lower()
         assert isinstance(fformat, str)
         assert fformat in fformats
-    except AssertionError:
+    except (AssertionError, AttributeError):
         fformat = "md"
 
     try:
         heading = settings.get("contents").get("heading")
         assert isinstance(heading, str)
-    except AssertionError:
+    except (AssertionError, AttributeError):
         heading = "Authors"
 
     try:
         opening = settings.get("contents").get("opening")
         assert isinstance(opening, str)
-    except AssertionError:
+    except (AssertionError, AttributeError):
         opening = "Thank you to all of our contributors."
 
     try:
         closing = settings.get("contents").get("closing")
         assert isinstance(closing, str)
-    except AssertionError:
+    except (AssertionError, AttributeError):
         closing = "This project would not be possible without you."
 
     validated = dict(
