@@ -208,13 +208,13 @@ CONTENTS_RST = "Test-Heading\n" +\
 
 SOURCE = (
     "",
-    "\n", 
-    "author-c", 
-    "Author-B", 
-    "author-a", 
-    "", 
-    "\n", 
-    "author-c", 
-    "Author-B", 
+    "\n",
+    "author-c",
+    "Author-B",
+    "author-a",
+    "",
+    "\n",
+    "author-c",
+    "Author-B",
     "author-a"
 )
