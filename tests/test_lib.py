@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from yaml import load
+from yaml import safe_load
 
 from authors.lib import (
     get_configuration_path,
@@ -52,7 +52,7 @@ def test_get_parsed_configuration_settings():
 
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
-    assert parsed == load(YAML_MD_FORMAT)
+    assert parsed == safe_load(YAML_MD_FORMAT)
 
     delete_configuration_file()
 

@@ -1,7 +1,5 @@
 from pathlib import Path
 
-from yaml import load
-
 CONFIGURATION_FILE = ".test.authors.yml"
 
 def create_configuration_file(yaml):
