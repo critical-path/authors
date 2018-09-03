@@ -9,7 +9,7 @@ from jinja2 import (
 )
 
 from yaml import (
-    load,
+    safe_load,
     YAMLError
 )
 
@@ -33,7 +33,7 @@ def get_parsed_configuration_settings(path):
     try:
         with path.open() as reader:
             parsed = reader.read()
-            parsed = load(parsed)
+            parsed = safe_load(parsed)
     except (FileNotFoundError, IOError, YAMLError):
         parsed = dict()
 
