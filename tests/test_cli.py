@@ -10,7 +10,7 @@ from click.testing import CliRunner
 from authors.cli import thank_authors
 
 
-def test_cli_options():
+def test_options():
     path = Path("AUTHORS")
 
     runner = CliRunner()
@@ -25,7 +25,7 @@ def test_cli_options():
     path.unlink()
 
 
-def test_cli_standard_input():
+def test_standard_input():
     path = Path("AUTHORS")
 
     runner = CliRunner()
@@ -40,7 +40,7 @@ def test_cli_standard_input():
     path.unlink()
 
 
-def test_cli_standard_input_redirection():
+def test_standard_input_redirection():
     path = Path("AUTHORS")
 
     echo = Popen(
