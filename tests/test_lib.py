@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from pytest import mark
+
 from yaml import safe_load
 
 from authors.lib import (
@@ -37,9 +39,7 @@ from constants import (
     CONTENTS_MD,
     CONTENTS_HTML,
     CONTENTS_RST,
-    SOURCE,
-    create_configuration_file,
-    delete_configuration_file
+    SOURCE
 )
 
 def test_get_configuration_path():
@@ -47,156 +47,113 @@ def test_get_configuration_path():
     assert path.is_absolute()
     assert CONFIGURATION_FILE in path.parts
 
-def test_get_parsed_configuration_settings():
-    create_configuration_file(YAML_MD_FORMAT)
-
+@mark.parametrize("configuration", [YAML_MD_FORMAT], indirect=True)
+def test_get_parsed_configuration_settings(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     assert parsed == safe_load(YAML_MD_FORMAT)
-
-    delete_configuration_file()
 
 def test_get_parsed_configuration_settings_error_no_file():
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     assert parsed == {}
 
-def test_get_parsed_configuration_settings_error_invalid_yaml():
-    create_configuration_file(INVALID_YAML)
-
+@mark.parametrize("configuration", [INVALID_YAML], indirect=True)
+def test_get_parsed_configuration_settings_error_invalid_yaml(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     assert parsed == {}
 
-    delete_configuration_file()
-
-def test_get_validated_configuration_settings():
-    create_configuration_file(YAML_MD_FORMAT)
-
+@mark.parametrize("configuration", [YAML_MD_FORMAT], indirect=True)
+def test_get_validated_configuration_settings(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
     assert validated == SETTINGS
 
-    delete_configuration_file()
-
-def test_get_validated_configuration_settings_no_name():
-    create_configuration_file(YAML_NO_NAME)
-
+@mark.parametrize("configuration", [YAML_NO_NAME], indirect=True)
+def test_get_validated_configuration_settings_no_name(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
     assert validated == SETTINGS_DEFAULT_NAME
 
-    delete_configuration_file()
-
-def test_get_validated_configuration_settings_name_not_str():
-    create_configuration_file(YAML_NAME_NOT_STR)
-
+@mark.parametrize("configuration", [YAML_NAME_NOT_STR], indirect=True)
+def test_get_validated_configuration_settings_name_not_str(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
     assert validated == SETTINGS_DEFAULT_NAME
 
-    delete_configuration_file()
-
-def test_get_validated_configuration_settings_no_format():
-    create_configuration_file(YAML_NO_FORMAT)
-
+@mark.parametrize("configuration", [YAML_NO_FORMAT], indirect=True)
+def test_get_validated_configuration_settings_no_format(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
     assert validated == SETTINGS_DEFAULT_FORMAT
 
-    delete_configuration_file()
-
-def test_get_validated_configuration_settings_format_not_str():
-    create_configuration_file(YAML_FORMAT_NOT_STR)
-
+@mark.parametrize("configuration", [YAML_FORMAT_NOT_STR], indirect=True)
+def test_get_validated_configuration_settings_format_not_str(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
     assert validated == SETTINGS_DEFAULT_FORMAT
 
-    delete_configuration_file()
-
-def test_get_validated_configuration_settings_format_not_in_list():
-    create_configuration_file(YAML_FORMAT_NOT_IN_LIST)
-
+@mark.parametrize("configuration", [YAML_FORMAT_NOT_IN_LIST], indirect=True)
+def test_get_validated_configuration_settings_format_not_in_list(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
     assert validated == SETTINGS_DEFAULT_FORMAT
 
-    delete_configuration_file()
-
-def test_get_validated_configuration_settings_no_heading():
-    create_configuration_file(YAML_NO_HEADING)
-
+@mark.parametrize("configuration", [YAML_NO_HEADING], indirect=True)
+def test_get_validated_configuration_settings_no_heading(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
     assert validated == SETTINGS_DEFAULT_HEADING
 
-    delete_configuration_file()
-
-def test_get_validated_configuration_settings_heading_not_str():
-    create_configuration_file(YAML_HEADING_NOT_STR)
-
+@mark.parametrize("configuration", [YAML_HEADING_NOT_STR], indirect=True)
+def test_get_validated_configuration_settings_heading_not_str(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
     assert validated == SETTINGS_DEFAULT_HEADING
 
-    delete_configuration_file()
-
-def test_get_validated_configuration_settings_no_opening():
-    create_configuration_file(YAML_NO_OPENING)
-
+@mark.parametrize("configuration", [YAML_NO_OPENING], indirect=True)
+def test_get_validated_configuration_settings_no_opening(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
     assert validated == SETTINGS_DEFAULT_OPENING
 
-    delete_configuration_file()
-
-def test_get_validated_configuration_settings_opening_not_str():
-    create_configuration_file(YAML_OPENING_NOT_STR)
-
+@mark.parametrize("configuration", [YAML_OPENING_NOT_STR], indirect=True)
+def test_get_validated_configuration_settings_opening_not_str(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
     assert validated == SETTINGS_DEFAULT_OPENING
 
-    delete_configuration_file()
-
-def test_get_validated_configuration_settings_no_closing():
-    create_configuration_file(YAML_NO_CLOSING)
-
+@mark.parametrize("configuration", [YAML_NO_CLOSING], indirect=True)
+def test_get_validated_configuration_settings_no_closing(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
     assert validated == SETTINGS_DEFAULT_CLOSING
 
-    delete_configuration_file()
-
-def test_get_validated_configuration_settings_closing_not_str():
-    create_configuration_file(YAML_CLOSING_NOT_STR)
-
+@mark.parametrize("configuration", [YAML_CLOSING_NOT_STR], indirect=True)
+def test_get_validated_configuration_settings_closing_not_str(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
     assert validated == SETTINGS_DEFAULT_CLOSING
-
-    delete_configuration_file()
 
 def test_get_authors():
     authors = get_authors(SOURCE)
     assert authors == ["author-a", "Author-B", "author-c"]
 
-def test_get_contents_of_authors_file_md():
-    create_configuration_file(YAML_MD_FORMAT)
-
+@mark.parametrize("configuration", [YAML_MD_FORMAT], indirect=True)
+def test_get_contents_of_authors_file_md(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
@@ -205,11 +162,8 @@ def test_get_contents_of_authors_file_md():
     contents = get_contents_of_authors_file(authors, **validated)
     assert contents == CONTENTS_MD
 
-    delete_configuration_file()
-
-def test_get_contents_of_authors_file_html():
-    create_configuration_file(YAML_HTML_FORMAT)
-
+@mark.parametrize("configuration", [YAML_HTML_FORMAT], indirect=True)
+def test_get_contents_of_authors_file_html(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
@@ -218,11 +172,8 @@ def test_get_contents_of_authors_file_html():
     contents = get_contents_of_authors_file(authors, **validated)
     assert contents == CONTENTS_HTML
 
-    delete_configuration_file()
-
-def test_get_contents_of_authors_file_rst():
-    create_configuration_file(YAML_RST_FORMAT)
-
+@mark.parametrize("configuration", [YAML_RST_FORMAT], indirect=True)
+def test_get_contents_of_authors_file_rst(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
@@ -231,11 +182,8 @@ def test_get_contents_of_authors_file_rst():
     contents = get_contents_of_authors_file(authors, **validated)
     assert contents == CONTENTS_RST
 
-    delete_configuration_file()
-
-def test_write_authors_file():
-    create_configuration_file(YAML_MD_FORMAT)
-
+@mark.parametrize("configuration", [YAML_MD_FORMAT], indirect=True)
+def test_write_authors_file(configuration):
     path = get_configuration_path(CONFIGURATION_FILE)
     parsed = get_parsed_configuration_settings(path)
     validated = get_validated_configuration_settings(parsed)
@@ -246,4 +194,3 @@ def test_write_authors_file():
     assert Path("TEST-AUTHORS").exists()
 
     Path("TEST-AUTHORS").unlink()
-    delete_configuration_file()

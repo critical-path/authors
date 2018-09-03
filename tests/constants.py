@@ -1,16 +1,4 @@
-from pathlib import Path
-
 CONFIGURATION_FILE = ".test.authors.yml"
-
-def create_configuration_file(yaml):
-    path = Path(CONFIGURATION_FILE)
-
-    with path.open("w") as writer:
-        writer.write(yaml)
-
-def delete_configuration_file():
-    path = Path(CONFIGURATION_FILE)
-    path.unlink()
 
 YAML_MD_FORMAT = "file:\n" +\
                  "  name: TEST-AUTHORS\n" +\
