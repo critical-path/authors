@@ -4,6 +4,7 @@ from pytest import fixture
 
 from constants import CONFIGURATION_FILE
 
+
 @fixture
 def configuration(request):
     """Support test setup and teardown.

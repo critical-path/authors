@@ -5,36 +5,56 @@ from subprocess import (
     Popen
 )
 
-from authors.cli import thank_authors
-
 from click.testing import CliRunner
 
-def test_cli_options():
+from authors.cli import thank_authors
+
+
+def test_options():
     path = Path("AUTHORS")
 
     runner = CliRunner()
-    result = runner.invoke(thank_authors, ["author-c", "Author-B", "author-a"])
+    result = runner.invoke(
+        thank_authors,
+        ["author-c", "Author-B", "author-a"]
+    )
+
     assert result.exit_code == 0
     assert path.stat()
 
     path.unlink()
 
-def test_cli_standard_input():
+
+def test_standard_input():
     path = Path("AUTHORS")
 
     runner = CliRunner()
-    result = runner.invoke(thank_authors, ["\n", "author-c", "Author-B", "author-a"])
+    result = runner.invoke(
+        thank_authors,
+        ["\n", "author-c", "Author-B", "author-a"]
+    )
+
     assert result.exit_code == 0
     assert path.stat()
 
     path.unlink()
 
-def test_cli_standard_input_redirection():
-   path = Path("AUTHORS")
 
-   echo = Popen(["echo", "-e", "author-c\nAuthor-B\nauthor-a"], stdout=PIPE)
-   thank_authors = Popen(["authors"], stdin=echo.stdout)
-   standard_output, standard_error = thank_authors.communicate()
-   assert path.stat()
+def test_standard_input_redirection():
+    path = Path("AUTHORS")
 
-   path.unlink()
+    echo = Popen(
+        ["echo", "-e", "author-c\nAuthor-B\nauthor-a"],
+        stdout=PIPE
+    )
+
+    thank_authors = Popen(
+        ["authors"],
+        stdin=echo.stdout
+    )
+
+    standard_output, standard_error = thank_authors.communicate()
+
+    assert path.stat()
+
+    path.unlink()
