@@ -179,8 +179,9 @@ CONTENTS_MD = "# Test-Heading\n" +\
               "Test-Closing\n"
 
 CONTENTS_HTML = "<!doctype html>\n" +\
-                "<html>\n" +\
+                "<html lang=\"en\">\n" +\
                 "  <head>\n" +\
+                "    <meta charset=\"utf-8\">" +\
                 "    <title>Authors</title>\n" +\
                 "  </head>\n" +\
                 "  <body>\n" +\
