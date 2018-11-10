@@ -1,4 +1,4 @@
-iiii[![Build Status](https://travis-ci.com/critical-path/authors.svg?branch=master)](https://travis-ci.com/critical-path/authors) [![Coverage Status](https://coveralls.io/repos/github/critical-path/authors/badge.svg)](https://coveralls.io/github/critical-path/authors)
+[![Build Status](https://travis-ci.com/critical-path/authors.svg?branch=master)](https://travis-ci.com/critical-path/authors) [![Coverage Status](https://coveralls.io/repos/github/critical-path/authors/badge.svg)](https://coveralls.io/github/critical-path/authors)
 
 ## authors v0.1.3
 
