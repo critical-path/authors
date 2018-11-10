@@ -181,7 +181,7 @@ CONTENTS_MD = "# Test-Heading\n" +\
 CONTENTS_HTML = "<!doctype html>\n" +\
                 "<html lang=\"en\">\n" +\
                 "  <head>\n" +\
-                "    <meta charset=\"utf-8\">" +\
+                "    <meta charset=\"utf-8\">\n" +\
                 "    <title>Authors</title>\n" +\
                 "  </head>\n" +\
                 "  <body>\n" +\
