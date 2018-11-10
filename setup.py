@@ -6,7 +6,7 @@ from setuptools import (
 
 setup(
     name="authors",
-    version="0.1.2",
+    version="0.1.3",
     description="Create an AUTHORS file to thank the people who contribute to your Git/GitHub project.",
     url="https://github.com/critical-path/authors",
     author="critical-path",
