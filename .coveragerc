@@ -1,7 +1,3 @@
 [run]
 branch = True
 source = authors
-
-[report]
-exclude_lines =
-    if __name__ == .__main__.:
