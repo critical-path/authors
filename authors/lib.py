@@ -1,143 +1,203 @@
-"""The library of functions used by authors."""
+"""
+This module contains functions used by authors.
+"""
 
 
-from pathlib import Path
-
-from jinja2 import (
-    Environment,
-    PackageLoader
-)
-
-from yaml import (
-    safe_load,
-    YAMLError
-)
+import pathlib
+import sys
+import jinja2
+import yaml
 
 
-CONFIGURATION_FILE = ".authors.yml"
+DEFAULT_CONFIGURATION_FILE = ".authors.yml"
+
+DEFAULT_CONFIGURATION = {
+    "name": "AUTHORS",
+    "kind": "md",
+    "heading": "Authors",
+    "opening": "Thank you to all of our contributors.",
+    "closing": "This project would not be possible without you."
+}
 
 
-def get_configuration_path(file):
-    """Return path to configuration file (.authors.yml)."""
+def read_configuration_file(file=DEFAULT_CONFIGURATION_FILE):
+    """
+    Reads a configuration file, usually `.authors.yml`.
 
-    path = Path()
-    directory = path.cwd()
-    configuration_path = path.joinpath(directory, file)
+    Parameters
+    ----------
+    file : str
+        The name of a file with user-defined
+        configuration settings.
 
-    return configuration_path
+        The default value is `.authors.yml`.
 
+    Returns
+    -------
+    str
+        The contents of a configuration file or an
+        empty str.
+    """
 
-def get_parsed_configuration_settings(path):
-    """Return parsed configuration settings."""
+    path = pathlib.Path(file)
 
-    try:
-        with path.open() as reader:
-            parsed = reader.read()
-            parsed = safe_load(parsed)
-    except (FileNotFoundError, IOError, YAMLError):
-        parsed = dict()
-
-    return parsed
-
-
-def get_validated_configuration_settings(settings):
-    """Return validated configuration settings, providing
-       default values where necessary."""
-
-    fformats = [
-        "html",
-        "md",
-        "rst"
-    ]
-
-    try:
-        name = settings.get("file").get("name")
-        assert isinstance(name, str)
-    except (AssertionError, AttributeError):
-        name = "AUTHORS"
-
-    # We use fformat, because format is the name of a
-    # built-in function.
-
-    try:
-        fformat = settings.get("file").get("format").lower()
-        assert isinstance(fformat, str)
-        assert fformat in fformats
-    except (AssertionError, AttributeError):
-        fformat = "md"
-
-    try:
-        heading = settings.get("contents").get("heading")
-        assert isinstance(heading, str)
-    except (AssertionError, AttributeError):
-        heading = "Authors"
-
-    try:
-        opening = settings.get("contents").get("opening")
-        assert isinstance(opening, str)
-    except (AssertionError, AttributeError):
-        opening = "Thank you to all of our contributors."
-
-    try:
-        closing = settings.get("contents").get("closing")
-        assert isinstance(closing, str)
-    except (AssertionError, AttributeError):
-        closing = "This project would not be possible without you."
-
-    validated = dict(
-        name=name,
-        fformat=fformat,
-        heading=heading,
-        opening=opening,
-        closing=closing
-    )
-
-    return validated
+    if path.exists():
+        return path.read_text()
+    else:
+        return str()
 
 
-def get_authors(source):
-    """Return unique, sorted authors from either
-       arguments or standard input."""
+def parse_yaml_to_dict(contents):
+    """
+    Parses YAML to a dict.
 
-    skip = [
-        "",
-        " ",
-        "\n"
-    ]
+    Parameters
+    ----------
+    contents : str
+        The contents of a file with user-defined
+        configuration settings.
 
-    authors = set(source)
-    authors = list(author.strip() for author in authors if author not in skip)
-    authors.sort(key=str.lower)
+    Returns
+    -------
+    dict
+       Configuration settings (one key-value
+       pair per setting) or an empty dict.
+    """
 
-    return authors
+    if contents:
+        return yaml.safe_load(contents)
+    else:
+        return dict()
 
 
-def get_contents_of_authors_file(authors, **kwargs):
-    """Return contents of AUTHORS file."""
+def validate_configuration(configuration):
+    """
+    Validates configuration settings.
 
-    # We use fformat, because format is the name of a
-    # built-in function.
+    Parameters
+    ----------
+    configuration : dict
+        The unvalidated configuration settings.
 
-    fformat = kwargs.get("fformat")
-    file = "template.{}".format(fformat)
+    Returns
+    -------
+    configuration : dict
+        The validated configuration settings,
+        using default values in the case of
+        missing or invalid values.
+    """
 
-    loader = PackageLoader("authors", "templates")
-    environment = Environment(
+    # Iterate over each key in DEFAULT_CONFIGURATION.
+    #
+    # If the configuration settings already contain this
+    # key, then just make sure that its value is a str.
+    #
+    # If the configuration settings do not contain this
+    # key, then add it and set its value to that found
+    # in DEFAULT_CONFIGURATION.
+
+    for key in DEFAULT_CONFIGURATION:
+        if key in configuration:
+            configuration[key] = str(configuration[key])
+        else:
+            configuration[key] = DEFAULT_CONFIGURATION[key]
+
+    # Make sure that the value of the `kind` key
+    # is `html`, `md`, or `rst`.
+
+    if configuration["kind"] not in ["html", "md", "rst"]:
+        configuration["kind"] = DEFAULT_CONFIGURATION["kind"]
+
+    return configuration
+
+
+def read_standard_input():
+    """
+    Reads from standard input.
+
+    Returns
+    -------
+    authors : list
+        A unique, sorted list of authors.
+    """
+
+    authors = sys.stdin.read().splitlines()
+    authors = set(authors)
+    return sorted(authors, key=str.lower)
+
+
+def render_template(authors, configuration):
+    """
+    Renders a template in `html`, `md`, or
+    `rst` format.
+
+    Parameters
+    ----------
+    authors : list
+        The authors to include in the rendered
+        template.
+
+    configuration : dict
+        Configuration settings relevant to the
+        rendered template (`heading`, `opening`,
+        and `closing`).
+
+    Returns
+    -------
+    str
+        The rendered template.
+    """
+
+    loader = jinja2.PackageLoader("authors", "templates")
+
+    environment = jinja2.Environment(
         loader=loader,
         lstrip_blocks=True,
         trim_blocks=True
     )
 
-    template = environment.get_template(file)
-    contents = template.render(authors=authors, **kwargs)
+    source_file = "template.{}".format(configuration["kind"])
+    template = environment.get_template(source_file)
+    return template.render(authors=authors, **configuration)
 
-    return contents
 
+def write_authors_file(contents, configuration):
+    """
+    Writes the rendered template to a file,
+    usually `AUTHORS`.
 
-def write_authors_file(contents, **kwargs):
-    """Write AUTHORS file."""
+    Parameters
+    ----------
+    contents : str
+        The rendered template.
 
-    name = kwargs.get("name")
+    configuration : dict
+        Configuration settings relevant to the
+        AUTHORS file (`name`).
+    """
 
-    with open(name, "w") as writer:
+    destination_file = configuration["name"]
+
+    with open(destination_file, "w") as writer:
         writer.write(contents)
+
+
+def main(file=DEFAULT_CONFIGURATION_FILE):
+    """
+    Generates an AUTHORS file.
+
+    Parameters
+    ----------
+    file : str
+        The name of a file with user-defined
+        configuration settings.
+
+        The default value is `.authors.yml`.
+    """
+
+    configuration = read_configuration_file(file=file)
+    parsed = parse_yaml_to_dict(configuration)
+    validated = validate_configuration(parsed)
+    authors = read_standard_input()
+    rendered = render_template(authors, validated)
+    write_authors_file(rendered, validated)
