@@ -1,5 +1,5 @@
 Authors
-==============================
+=============
 
 Thank you to all of our contributors.
 

@@ -1,7 +1,0 @@
-file:
-  name: AUTHORS
-  format: md
-contents:
-  heading: Authors
-  opening: Thank you to all of our contributors.
-  closing: This project would not be possible without you.
