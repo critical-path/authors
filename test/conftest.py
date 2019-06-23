@@ -21,7 +21,7 @@ def standard_input(monkeypatch):
 def configuration_file(tmp_path):
     file = tmp_path.joinpath(constants.CONFIGURATION_FILE)
     file.write_text(constants.YAML_WITH_MD_KIND)
-    yield file
+    yield file.as_posix()
 
 
 # This represents a configuration file for which the value of
@@ -31,7 +31,7 @@ def configuration_file(tmp_path):
 def configuration_file_with_html_kind(tmp_path):
     file = tmp_path.joinpath(constants.CONFIGURATION_FILE)
     file.write_text(constants.YAML_WITH_HTML_KIND)
-    yield file
+    yield file.as_posix()
 
 
 # This represents a configuration file for which the value of
@@ -41,7 +41,7 @@ def configuration_file_with_html_kind(tmp_path):
 def configuration_file_with_rst_kind(tmp_path):
     file = tmp_path.joinpath(constants.CONFIGURATION_FILE)
     file.write_text(constants.YAML_WITH_RST_KIND)
-    yield file
+    yield file.as_posix()
 
 
 # This represents a configuration file for which the value of
@@ -51,7 +51,7 @@ def configuration_file_with_rst_kind(tmp_path):
 def configuration_file_with_invalid_kind(tmp_path):
     file = tmp_path.joinpath(constants.CONFIGURATION_FILE)
     file.write_text(constants.YAML_WITH_INVALID_KIND)
-    yield file
+    yield file.as_posix()
 
 
 # This represents valid configuration settings parsed from a
