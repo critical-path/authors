@@ -1,13 +1,10 @@
-from setuptools import (
-    find_packages,
-    setup
-)
+import setuptools
 
 
-setup(
+setuptools.setup(
     name="authors",
-    version="0.1.3",
-    description="Create an AUTHORS file to thank the people who contribute to your Git/GitHub project.",
+    version="0.2.0",
+    description="Thank the people who contribute to your Git/GitHub project by creating an AUTHORS file.",
     url="https://github.com/critical-path/authors",
     author="critical-path",
     author_email="n/a",
@@ -18,8 +15,8 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3"
     ],
-    keywords="authors thank contribute contributor contribution git github",
-    packages=find_packages(),
+    keywords="thank authors contributors git github",
+    packages=setuptools.find_packages(),
     package_data={
         "authors": [
             "templates/template.html",
@@ -28,7 +25,6 @@ setup(
         ]
     },
     install_requires=[
-        "click",
         "Jinja2",
         "PyYAML"
     ],
@@ -37,13 +33,12 @@ setup(
             "coveralls",
             "flake8",
             "pytest",
-            "pytest-cov",
-            "radon"
+            "pytest-cov"
         ]
     },
     entry_points={
         "console_scripts": [
-            "authors=authors.cli:thank_authors"
+            "authors=authors:main"
         ]
     }
 )
