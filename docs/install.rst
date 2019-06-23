@@ -11,10 +11,12 @@ To install authors with test-related dependencies, run the following commands fr
     [user@host ~]$ cd authors
     [user@host authors]$ sudo pip install --editable .[test]
 
-To install it without test-related dependencies, run the following command from your shell.
+To install it without test-related dependencies, run the following commands from your shell.
 
 .. code-block:: console
 
-   [user@host ~]$ sudo pip install git+https://github.com/critical-path/authors.git
+   [user@host ~]$ git clone git@github.com:critical-path/authors.git
+   [user@host ~]$ cd authors
+   [user@host authors]$ sudo pip install .
 
 (If necessary, replace :code:`pip` with :code:`pip3`.)
