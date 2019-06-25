@@ -39,7 +39,7 @@ To install it without test-related dependencies, run the following commands from
 Using authors
 =============
 
-First, select a project whose authors you want to thank and change to its working directory (the directory in which the :code:`.git` subdirectory resides).
+First, select a project whose contributors you want to thank and change to its working directory (the directory in which the :code:`.git` subdirectory resides).
 
 .. code-block:: console
 
