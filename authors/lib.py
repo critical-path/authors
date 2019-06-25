@@ -9,7 +9,7 @@ import jinja2
 import yaml
 
 
-DEFAULT_CONFIGURATION_FILE = ".authors.yml"
+CONFIGURATION_FILE = ".authors.yml"
 
 DEFAULT_CONFIGURATION = {
     "name": "AUTHORS",
@@ -20,7 +20,7 @@ DEFAULT_CONFIGURATION = {
 }
 
 
-def read_configuration_file(file=DEFAULT_CONFIGURATION_FILE):
+def read_configuration_file(file=CONFIGURATION_FILE):
     """
     Reads a configuration file, usually `.authors.yml`.
 
@@ -182,7 +182,7 @@ def write_authors_file(contents, configuration):
         writer.write(contents)
 
 
-def main(file=DEFAULT_CONFIGURATION_FILE):
+def main(file=CONFIGURATION_FILE):
     """
     Generates an AUTHORS file.
 
