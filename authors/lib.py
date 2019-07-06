@@ -89,17 +89,12 @@ def validate_configuration(configuration):
 
     # Iterate over each key in DEFAULT_CONFIGURATION.
     #
-    # If the configuration settings already contain this
-    # key, then just make sure that its value is a str.
-    #
-    # If the configuration settings do not contain this
-    # key, then add it and set its value to that found
-    # in DEFAULT_CONFIGURATION.
+    # If the user-defined configuration settings do not 
+    # contain this key, then add it and set its value 
+    # to that found in DEFAULT_CONFIGURATION.
 
     for key in DEFAULT_CONFIGURATION:
-        if key in configuration:
-            configuration[key] = str(configuration[key])
-        else:
+        if key not in configuration:
             configuration[key] = DEFAULT_CONFIGURATION[key]
 
     # Make sure that the value of the `kind` key
