@@ -89,8 +89,8 @@ def validate_configuration(configuration):
 
     # Iterate over each key in DEFAULT_CONFIGURATION.
     #
-    # If the user-defined configuration settings do not 
-    # contain this key, then add it and set its value 
+    # If the user-defined configuration settings do not
+    # contain this key, then add it and set its value
     # to that found in DEFAULT_CONFIGURATION.
 
     for key in DEFAULT_CONFIGURATION:
