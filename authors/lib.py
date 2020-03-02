@@ -19,6 +19,13 @@ DEFAULT_CONFIGURATION = {
     "closing": "This project would not be possible without you."
 }
 
+VALID_KINDS = [
+    "html",
+    "md",
+    "rst",
+    "txt"
+]
+
 
 def read_configuration_file(file=CONFIGURATION_FILE):
     """
@@ -98,9 +105,9 @@ def validate_configuration(configuration):
             configuration[key] = DEFAULT_CONFIGURATION[key]
 
     # Make sure that the value of the `kind` key
-    # is `html`, `md`, or `rst`.
+    # is `html`, `md`, `rst`, or `txt`.
 
-    if configuration["kind"] not in ["html", "md", "rst"]:
+    if configuration["kind"] not in VALID_KINDS:
         configuration["kind"] = DEFAULT_CONFIGURATION["kind"]
 
     return configuration
@@ -123,8 +130,8 @@ def read_standard_input():
 
 def render_template(authors, configuration):
     """
-    Renders a template in `html`, `md`, or
-    `rst` format.
+    Renders a template in `html`, `md`, `rst`,
+    or `txt` format.
 
     Parameters
     ----------

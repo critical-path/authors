@@ -14,6 +14,8 @@ YAML_WITH_HTML_KIND = YAML.format("html")
 
 YAML_WITH_RST_KIND = YAML.format("rst")
 
+YAML_WITH_TXT_KIND = YAML.format("txt")
+
 YAML_WITH_INVALID_KIND = YAML.format("invalid")
 
 AUTHORS_WITH_MD_KIND = """
@@ -51,6 +53,18 @@ AUTHORS_WITH_HTML_KIND = """
 AUTHORS_WITH_RST_KIND = """
 Test Heading
 =============
+
+Test Opening
+
+- Test Author A
+- Test Author B
+- Test Author C
+
+Test Closing
+""".strip()
+
+AUTHORS_WITH_TXT_KIND = """
+Test Heading
 
 Test Opening
 

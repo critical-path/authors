@@ -70,6 +70,11 @@ def test_render_template_with_rst_kind(authors_list, configuration_with_rst_kind
     assert results == constants.AUTHORS_WITH_RST_KIND
 
 
+def test_render_template_with_txt_kind(authors_list, configuration_with_txt_kind):
+    results = authors.lib.render_template(authors_list, configuration_with_txt_kind)
+    assert results == constants.AUTHORS_WITH_TXT_KIND
+
+
 def test_write_authors_file(rendered_template, configuration):
     authors.lib.write_authors_file(rendered_template, configuration)
     destination_file = pathlib.Path(configuration["name"])

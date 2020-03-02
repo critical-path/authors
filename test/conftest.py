@@ -45,6 +45,16 @@ def configuration_file_with_rst_kind(tmp_path):
 
 
 # This represents a configuration file for which the value of
+# `kind` is `txt`.
+
+@pytest.fixture
+def configuration_file_with_txt_kind(tmp_path):
+    file = tmp_path.joinpath(constants.CONFIGURATION_FILE)
+    file.write_text(constants.YAML_WITH_TXT_KIND)
+    yield file.as_posix()
+
+
+# This represents a configuration file for which the value of
 # `kind` is `invalid`.
 
 @pytest.fixture
@@ -81,6 +91,16 @@ def configuration_with_html_kind(configuration_file_with_html_kind):
 @pytest.fixture
 def configuration_with_rst_kind(configuration_file_with_rst_kind):
     yaml = authors.lib.read_configuration_file(file=configuration_file_with_rst_kind)
+    return authors.lib.parse_yaml_to_dict(yaml)
+
+
+# This represents valid configuration settings parsed from a
+# file.  The value of `kind` is `txt`, so it will produce
+# an AUTHORS file in text format.
+
+@pytest.fixture
+def configuration_with_txt_kind(configuration_file_with_txt_kind):
+    yaml = authors.lib.read_configuration_file(file=configuration_file_with_txt_kind)
     return authors.lib.parse_yaml_to_dict(yaml)
 
 
