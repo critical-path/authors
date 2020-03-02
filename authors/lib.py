@@ -124,8 +124,7 @@ def read_standard_input():
     """
 
     authors = sys.stdin.read().splitlines()
-    authors = set(authors)
-    return sorted(authors, key=str.lower)
+    return sorted(set(authors), key=str.lower)
 
 
 def render_template(authors, configuration):
