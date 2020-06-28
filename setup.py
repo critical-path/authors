@@ -33,7 +33,7 @@ setuptools.setup(
         "test": [
             "coveralls",
             "flake8",
-            "pytest",
+            "pytest>=4.6",
             "pytest-cov"
         ]
     },
