@@ -3,7 +3,7 @@ import setuptools
 
 setuptools.setup(
     name="authors",
-    version="0.3.1",
+    version="0.3.2",
     description="Thank the people who contribute to your Git/GitHub project by creating an AUTHORS file.",
     url="https://github.com/critical-path/authors",
     author="critical-path",
