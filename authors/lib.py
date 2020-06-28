@@ -177,9 +177,9 @@ def write_authors_file(contents, configuration):
         AUTHORS file (`name`).
     """
 
-    destination_file = configuration["name"]
+    destination_file = pathlib.Path(configuration["name"])
 
-    with open(destination_file, "w") as writer:
+    with destination_file.open("w") as writer:
         writer.write(contents)
 
 
