@@ -3,7 +3,7 @@ import setuptools
 
 setuptools.setup(
     name="authors",
-    version="0.3.2",
+    version="0.4.0",
     description="Thank the people who contribute to your Git/GitHub project by creating an AUTHORS file.",
     url="https://github.com/critical-path/authors",
     author="critical-path",
@@ -19,6 +19,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     package_data={
         "authors": [
+            "templates/template.adoc",
             "templates/template.html",
             "templates/template.md",
             "templates/template.rst",

@@ -60,6 +60,11 @@ def test_render_template(authors_list, configuration):
     assert results == constants.AUTHORS_WITH_MD_KIND
 
 
+def test_render_template_with_adoc_kind(authors_list, configuration_with_adoc_kind):
+    results = authors.lib.render_template(authors_list, configuration_with_adoc_kind)
+    assert results == constants.AUTHORS_WITH_ADOC_KIND
+
+
 def test_render_template_with_html_kind(authors_list, configuration_with_html_kind):
     results = authors.lib.render_template(authors_list, configuration_with_html_kind)
     assert results == constants.AUTHORS_WITH_HTML_KIND
