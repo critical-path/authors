@@ -25,6 +25,16 @@ def configuration_file(tmp_path):
 
 
 # This represents a configuration file for which the value of
+# `kind` is `adoc`.
+
+@pytest.fixture
+def configuration_file_with_adoc_kind(tmp_path):
+    file = tmp_path.joinpath(constants.CONFIGURATION_FILE)
+    file.write_text(constants.YAML_WITH_ADOC_KIND)
+    yield file.as_posix()
+
+
+# This represents a configuration file for which the value of
 # `kind` is `html`.
 
 @pytest.fixture
@@ -71,6 +81,16 @@ def configuration_file_with_invalid_kind(tmp_path):
 @pytest.fixture
 def configuration(configuration_file):
     yaml = authors.lib.read_configuration_file(file=configuration_file)
+    return authors.lib.parse_yaml_to_dict(yaml)
+
+
+# This represents valid configuration settings parsed from a
+# file.  The value of `kind` is `adoc`, so it will produce
+# an AUTHORS file in ADOC format.
+
+@pytest.fixture
+def configuration_with_adoc_kind(configuration_file_with_adoc_kind):
+    yaml = authors.lib.read_configuration_file(file=configuration_file_with_adoc_kind)
     return authors.lib.parse_yaml_to_dict(yaml)
 
 

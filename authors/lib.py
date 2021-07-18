@@ -20,6 +20,7 @@ DEFAULT_CONFIGURATION = {
 }
 
 VALID_KINDS = [
+    "adoc",
     "html",
     "md",
     "rst",
@@ -105,7 +106,7 @@ def validate_configuration(configuration):
             configuration[key] = DEFAULT_CONFIGURATION[key]
 
     # Make sure that the value of the `kind` key
-    # is `html`, `md`, `rst`, or `txt`.
+    # is `adoc`, `html`, `md`, `rst`, or `txt`.
 
     if configuration["kind"] not in VALID_KINDS:
         configuration["kind"] = DEFAULT_CONFIGURATION["kind"]
@@ -129,8 +130,8 @@ def read_standard_input():
 
 def render_template(authors, configuration):
     """
-    Renders a template in `html`, `md`, `rst`,
-    or `txt` format.
+    Renders a template in `adoc`, `html`, `md`,
+    `rst`, or `txt` format.
 
     Parameters
     ----------
