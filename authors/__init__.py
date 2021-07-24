@@ -4,7 +4,7 @@ by creating an AUTHORS file.
 """
 
 
-__version__ = "0.4.0"
+__version__ = "0.4.1"
 
 __author__ = "critical-path"
 
@@ -13,4 +13,4 @@ __all__ = [
 ]
 
 
-from authors.lib import main
+from .lib import main
